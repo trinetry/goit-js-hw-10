@@ -1,13 +1,14 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import { fetchCountries } from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 const BASE_URL = 'https://restcountries.com/v3.1';
 const searchBox = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
+
+searchBox.addEventListener('input', debounce(showCountry, DEBOUNCE_DELAY));
 
 function fetchCountries(name) {
     return fetch(`${BASE_URL}/name/${name}?fields=name,capital,population,flags,languages`)
@@ -69,5 +70,3 @@ function showError(error) {
     countryInfo.innerHTML = '';
     countryList.innerHTML = '';
 }
-
-searchBox.addEventListener('input', debounce(showCountry, DEBOUNCE_DELAY));
